@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MobileBank Prototype</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- TOP BAR (visible after login) -->
+    <header class="topbar hidden" id="topbar">
+      <button class="icon-btn" aria-label="Menu">☰</button>
+
+      <div class="topbar-title">
+        <div class="topbar-small" id="greetingText">Good afternoon</div>
+        <div class="topbar-name" id="userName">User</div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" aria-label="Notifications">🔔</button>
+        <button class="icon-btn" aria-label="Settings">⚙️</button>
+        <div class="avatar" id="avatarCircle">R</div>
+      </div>
+    </header>
+
+<div id="avatarPop" class="avatar-pop hidden" role="dialog" aria-hidden="true">
+  <div class="pop-title">Your status</div>
+  <div class="pop-row"><span>Name</span><b id="popName">—</b></div>
+  <div class="pop-row"><span>Email</span><b id="popEmail">—</b></div>
+  <div class="pop-row"><span>Account</span><b>Demo</b></div>
+  <div class="pop-row"><span>Session</span><b id="popSession">—</b></div>
+  <div class="pop-actions">
+    <button id="popGoProfile" class="btn secondary">Profile</button>
+    <button id="popLogout" class="btn secondary">Logout</button>
+  </div>
+</div>
+
+
+
+    <!-- AUTH -->
+    <main id="authView" class="auth">
+      <div class="auth-card">
+        <div class="brand">
+          <div class="logo">MB</div>
+          <div>
+            <div class="brand-title">MobileBank</div>
+            <div class="brand-sub">Prototype (IPD)</div>
+          </div>
+        </div>
+
+        <h1>Sign in</h1>
+        <p class="muted">Use demo credentials to access the prototype.</p>
+
+        <form id="loginForm" class="form">
+          <label>
+            Email
+            <input id="email" type="email" autocomplete="username"
+              placeholder="e.g. demo@mobilebank.test" required />
+          </label>
+
+          <label>
+            Password
+            <input id="password" type="password" autocomplete="current-password"
+              placeholder="e.g. Demo1234" required />
+          </label>
+
+          <button class="btn primary" type="submit">Login</button>
+        </form>
+
+        <div class="hint">
+          <strong>Demo:</strong> demo@mobilebank.test / Demo1234
+        </div>
+
+        <div id="authError" class="alert error hidden"></div>
+
+        <div class="footer-note">IPD Prototype • Client-side only • No real banking data</div>
+      </div>
+    </main>
+
+    <!-- APP (after login) -->
+    <main id="appView" class="layout hidden">
+      <section class="content">
+
+        <!-- HOME (route-dashboard) -->
+        <section id="route-dashboard" class="route">
+          <!-- Balance Card -->
+          <div class="hero-card">
+            <div class="hero-top">
+              <div>
+                <div class="hero-label">AVAILABLE BALANCE</div>
+                <div class="hero-balance" id="totalBalance">£0.00</div>
+              </div>
+              <div class="hero-brand">
+                <div class="nfc">)))</div>
+                <div class="hero-bank">SecureBank</div>
+              </div>
+            </div>
+
+            <div class="hero-mid">
+              <div class="dots">•••• &nbsp; •••• &nbsp; ••••</div>
+              <div class="last4" id="cardLast4">5678</div>
+            </div>
+
+            <div class="hero-bottom">
+              <div>
+                <div class="hero-small">CARD HOLDER</div>
+                <div class="hero-strong" id="cardHolderName">RANIA FADIEL</div>
+              </div>
+              <div>
+                <div class="hero-small">EXPIRES</div>
+                <div class="hero-strong" id="cardExpiry">12/28</div>
+              </div>
+              <div class="mc">
+                <span class="mc1"></span><span class="mc2"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <h2 class="section-title">Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="qa" id="qaSend">
+              <div class="qa-icon">✈️</div>
+              <div class="qa-text">Send</div>
+            </button>
+            <button class="qa" id="qaRequest">
+              <div class="qa-icon">⬇️</div>
+              <div class="qa-text">Request</div>
+            </button>
+            <button class="qa" id="qaTopUp">
+              <div class="qa-icon">➕</div>
+              <div class="qa-text">Top Up</div>
+            </button>
+            <button class="qa" id="qaScan">
+              <div class="qa-icon">🔳</div>
+              <div class="qa-text">Scan</div>
+            </button>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-row">
+                <div class="stat-dot green"></div>
+                <div class="stat-title">Income</div>
+              </div>
+              <div class="stat-value" id="incomeTotal">£0.00</div>
+              <div class="stat-sub" id="incomeHint">+0.0% from last month</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-row">
+                <div class="stat-dot red"></div>
+                <div class="stat-title">Spending</div>
+              </div>
+              <div class="stat-value" id="spendTotal">£0.00</div>
+              <div class="stat-sub" id="spendHint">-0.0% from last month</div>
+            </div>
+          </div>
+
+          <!-- Recent -->
+          <div class="section-head">
+            <h2 class="section-title">Recent Transactions</h2>
+            <button class="link-btn" id="viewAllTx">View All →</button>
+          </div>
+
+          <div id="recentTransactions" class="list"></div>
+
+          <!-- Keep accountsList present for JS (can be hidden / unused) -->
+          <div id="accountsList" class="hidden"></div>
+        </section>
+
+        <!-- ANALYTICS / TRANSACTIONS (route-analytics) -->
+        <section id="route-analytics" class="route hidden">
+          <h2>Transactions & Analytics</h2>
+          <p class="muted">Search, filter and view spending summary.</p>
+
+          <div class="card">
+            <div class="form compact">
+              <label>
+                Search
+                <input id="txSearch" type="text" placeholder="Merchant, note..." />
+              </label>
+              <label>
+                Type
+                <select id="txType">
+                  <option value="all">All</option>
+                  <option value="card">Card</option>
+                  <option value="transfer">Transfer</option>
+                  <option value="salary">Salary</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="divider"></div>
+            <div id="txList" class="list"></div>
+          </div>
+
+          <div class="card">
+            <h3>Spending summary (simple)</h3>
+            <p class="muted">Outgoing totals by transaction type (client-side demo).</p>
+            <div id="spendSummary" class="list"></div>
+          </div>
+        </section>
+
+        <!-- TRANSFER (route-transfer) -->
+        <section id="route-transfer" class="route hidden">
+  <div class="transfer-card">
+    <h2>Transfer money</h2>
+
+    <div class="amount-display">
+      <span>£</span>
+      <input id="amount" type="number" placeholder="0.00" />
+    </div>
+
+    <form id="transferForm" class="transfer-form">
+      <label>
+        From account
+        <select id="fromAccount"></select>
+      </label>
+
+      <label>
+        Recipient name
+        <input id="recipientName" type="text" placeholder="John Smith" />
+      </label>
+
+      <div class="row">
+        <label>
+          Sort code
+          <input id="sortCode" type="text" placeholder="12-34-56" />
+        </label>
+
+        <label>
+          Account number
+          <input id="accountNumber" type="text" placeholder="12345678" />
+        </label>
+      </div>
+
+      <label>
+        Reference
+        <input id="reference" type="text" placeholder="Rent / Bills" />
+      </label>
+
+      <button class="btn primary full">Confirm transfer</button>
+
+      <div id="transferMsg" class="success hidden"></div>
+      <div id="transferErr" class="error hidden"></div>
+    </form>
+  </div>
+  <!-- Transfer confirmation -->
+<div id="transferConfirm" class="card hidden transfer-confirm">
+  <h2>Transfer sent 🎉</h2>
+
+  <p class="confirm-amount" id="confirmAmount">£0.00</p>
+
+  <p class="confirm-text">
+    Money has been sent to <strong id="confirmRecipient"></strong>
+  </p>
+
+  <button class="btn primary" id="confirmDoneBtn">
+    Done
+  </button>
+</div>
+</section>
+
+
+        <!-- CARDS (route-cards) -->
+        <section id="route-cards" class="route hidden">
+          <h2>Cards</h2>
+          <p class="muted">Card management (prototype toggle only).</p>
+
+          <div class="card">
+            <div class="row">
+              <div>
+                <div class="strong">Freeze card</div>
+                <div class="muted small">Stops card payments (prototype state only).</div>
+              </div>
+
+              <label class="switch">
+                <input id="freezeToggle" type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div id="freezeState" class="pill"></div>
+          </div>
+        </section>
+
+        <!-- MORE / PROFILE (route-more) -->
+        <section id="route-more" class="route hidden">
+          <h2>Profile</h2>
+          <p class="muted">Update personal details stored locally (demo purposes).</p>
+
+          <div class="card">
+            <form id="profileForm" class="form">
+              <label>Full name <input id="fullName" type="text" required /></label>
+              <label>Phone <input id="phone" type="tel" placeholder="+44..." required /></label>
+              <label>Address <input id="address" type="text" required /></label>
+              <button class="btn primary" type="submit">Save changes</button>
+            </form>
+            <div id="profileMsg" class="alert success hidden"></div>
+
+            <div class="divider"></div>
+
+            <button class="btn secondary" id="logoutBtn">Logout</button>
+            <span id="sessionUser" class="pill hidden"></span>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- BOTTOM NAV -->
+      <nav class="bottom-nav">
+        <button class="nav-item active" data-route="dashboard">Home</button>
+        <button class="nav-item" data-route="cards">Cards</button>
+        <button class="nav-item" data-route="transfer">Transfer</button>
+        <button class="nav-item" data-route="analytics">Analytics</button>
+        <button class="nav-item" data-route="more">More</button>
+      </nav>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <!-- Avatar popover -->
+<div id="profilePopover" class="popover hidden" aria-hidden="true">
+  <div class="popover-card">
+    <div class="pop-hd">
+      <div class="pop-avatar" id="popAvatar">R</div>
+      <div class="pop-meta">
+        <div class="pop-name" id="popName">Your Name</div>
+        <div class="pop-email" id="popEmail">you@email.com</div>
+      </div>
+    </div>
+
+    <div class="pop-grid">
+      <div class="pop-item">
+        <div class="k">Phone</div>
+        <div class="v" id="popPhone">—</div>
+      </div>
+      <div class="pop-item">
+        <div class="k">Address</div>
+        <div class="v" id="popAddress">—</div>
+      </div>
+      <div class="pop-item">
+        <div class="k">Card status</div>
+        <div class="v" id="popCardStatus">ACTIVE</div>
+      </div>
+      <div class="pop-item">
+        <div class="k">Session</div>
+        <div class="v" id="popSession">Signed in</div>
+      </div>
+    </div>
+
+    <div class="pop-actions">
+      <button class="btn secondary" id="popGoProfile" type="button">Open Profile</button>
+      <button class="btn primary" id="popLogout" type="button">Logout</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
