@@ -6,11 +6,10 @@
   <title>MobileBank Prototype</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <div class="app">
 
-    <!-- TOP BAR (visible after login) -->
+    <!-- TOP BAR -->
     <header class="topbar hidden" id="topbar">
       <button class="icon-btn" aria-label="Menu">☰</button>
 
@@ -25,20 +24,6 @@
         <div class="avatar" id="avatarCircle">R</div>
       </div>
     </header>
-
-<div id="avatarPop" class="avatar-pop hidden" role="dialog" aria-hidden="true">
-  <div class="pop-title">Your status</div>
-  <div class="pop-row"><span>Name</span><b id="popName">—</b></div>
-  <div class="pop-row"><span>Email</span><b id="popEmail">—</b></div>
-  <div class="pop-row"><span>Account</span><b>Demo</b></div>
-  <div class="pop-row"><span>Session</span><b id="popSession">—</b></div>
-  <div class="pop-actions">
-    <button id="popGoProfile" class="btn secondary">Profile</button>
-    <button id="popLogout" class="btn secondary">Logout</button>
-  </div>
-</div>
-
-
 
     <!-- AUTH -->
     <main id="authView" class="auth">
@@ -57,14 +42,24 @@
         <form id="loginForm" class="form">
           <label>
             Email
-            <input id="email" type="email" autocomplete="username"
-              placeholder="e.g. demo@mobilebank.test" required />
+            <input
+              id="email"
+              type="email"
+              autocomplete="username"
+              placeholder="e.g. demo@mobilebank.test"
+              required
+            />
           </label>
 
           <label>
             Password
-            <input id="password" type="password" autocomplete="current-password"
-              placeholder="e.g. Demo1234" required />
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="e.g. Demo1234"
+              required
+            />
           </label>
 
           <button class="btn primary" type="submit">Login</button>
@@ -76,23 +71,25 @@
 
         <div id="authError" class="alert error hidden"></div>
 
-        <div class="footer-note">IPD Prototype • Client-side only • No real banking data</div>
+        <div class="footer-note">
+          IPD Prototype • Client-side only • No real banking data
+        </div>
       </div>
     </main>
 
-    <!-- APP (after login) -->
+    <!-- APP -->
     <main id="appView" class="layout hidden">
       <section class="content">
 
-        <!-- HOME (route-dashboard) -->
+        <!-- HOME -->
         <section id="route-dashboard" class="route">
-          <!-- Balance Card -->
           <div class="hero-card">
             <div class="hero-top">
               <div>
                 <div class="hero-label">AVAILABLE BALANCE</div>
                 <div class="hero-balance" id="totalBalance">£0.00</div>
               </div>
+
               <div class="hero-brand">
                 <div class="nfc">)))</div>
                 <div class="hero-bank">SecureBank</div>
@@ -109,38 +106,42 @@
                 <div class="hero-small">CARD HOLDER</div>
                 <div class="hero-strong" id="cardHolderName">RANIA FADIEL</div>
               </div>
+
               <div>
                 <div class="hero-small">EXPIRES</div>
                 <div class="hero-strong" id="cardExpiry">12/28</div>
               </div>
+
               <div class="mc">
-                <span class="mc1"></span><span class="mc2"></span>
+                <span class="mc1"></span>
+                <span class="mc2"></span>
               </div>
             </div>
           </div>
 
-          <!-- Quick Actions -->
           <h2 class="section-title">Quick Actions</h2>
           <div class="quick-actions">
-            <button class="qa" id="qaSend">
+            <button class="qa" id="qaSend" type="button">
               <div class="qa-icon">✈️</div>
               <div class="qa-text">Send</div>
             </button>
-            <button class="qa" id="qaRequest">
+
+            <button class="qa" id="qaRequest" type="button">
               <div class="qa-icon">⬇️</div>
               <div class="qa-text">Request</div>
             </button>
-            <button class="qa" id="qaTopUp">
+
+            <button class="qa" id="qaTopUp" type="button">
               <div class="qa-icon">➕</div>
               <div class="qa-text">Top Up</div>
             </button>
-            <button class="qa" id="qaScan">
+
+            <button class="qa" id="qaScan" type="button">
               <div class="qa-icon">🔳</div>
               <div class="qa-text">Scan</div>
             </button>
           </div>
 
-          <!-- Stats -->
           <div class="stats">
             <div class="stat-card">
               <div class="stat-row">
@@ -161,19 +162,16 @@
             </div>
           </div>
 
-          <!-- Recent -->
           <div class="section-head">
             <h2 class="section-title">Recent Transactions</h2>
-            <button class="link-btn" id="viewAllTx">View All →</button>
+            <button class="link-btn" id="viewAllTx" type="button">View All →</button>
           </div>
 
           <div id="recentTransactions" class="list"></div>
-
-          <!-- Keep accountsList present for JS (can be hidden / unused) -->
           <div id="accountsList" class="hidden"></div>
         </section>
 
-        <!-- ANALYTICS / TRANSACTIONS (route-analytics) -->
+        <!-- ANALYTICS -->
         <section id="route-analytics" class="route hidden">
           <h2>Transactions & Analytics</h2>
           <p class="muted">Search, filter and view spending summary.</p>
@@ -184,6 +182,7 @@
                 Search
                 <input id="txSearch" type="text" placeholder="Merchant, note..." />
               </label>
+
               <label>
                 Type
                 <select id="txType">
@@ -206,68 +205,193 @@
           </div>
         </section>
 
-        <!-- TRANSFER (route-transfer) -->
+        <!-- TRANSFER -->
         <section id="route-transfer" class="route hidden">
-  <div class="transfer-card">
-    <h2>Transfer money</h2>
+          <div class="transfer-card">
+            <h2>Transfer money</h2>
 
-    <div class="amount-display">
-      <span>£</span>
-      <input id="amount" type="number" placeholder="0.00" />
+            <div class="amount-display">
+              <span>£</span>
+              <input id="amount" type="number" placeholder="0.00" />
+            </div>
+
+            <form id="transferForm" class="transfer-form">
+              <label>
+                From account
+                <select id="fromAccount"></select>
+              </label>
+
+              <label>
+                Recipient name
+                <input id="recipientName" type="text" placeholder="John Smith" />
+              </label>
+
+              <div class="row">
+                <label>
+                  Sort code
+                  <input id="sortCode" type="text" placeholder="12-34-56" />
+                </label>
+
+                <label>
+                  Account number
+                  <input id="accountNumber" type="text" placeholder="12345678" />
+              </label>
+              </div>
+
+              <label>
+                Reference
+                <input id="reference" type="text" placeholder="Rent / Bills" />
+              </label>
+
+              <button class="btn primary full" type="submit">Confirm transfer</button>
+
+              <div id="transferMsg" class="success hidden"></div>
+              <div id="transferErr" class="error hidden"></div>
+            </form>
+          </div>
+
+          <div id="transferConfirm" class="card hidden transfer-confirm">
+            <h2>Transfer sent 🎉</h2>
+            <p class="confirm-amount" id="confirmAmount">£0.00</p>
+            <p class="confirm-text">
+              Money has been sent to <strong id="confirmRecipient"></strong>
+            </p>
+            <button class="btn primary" id="confirmDoneBtn" type="button">Done</button>
+          </div>
+        </section>
+   <!-- TOP UP -->
+<section id="route-topup" class="route hidden">
+  <div class="topup-intro">
+    <h2>Top Up Cards</h2>
+    <p>Choose a card and add money to it.</p>
+    <div class="topup-summary">
+      <div>
+        <div class="k">Total points</div>
+        <div class="v" id="topupTotalPoints">12,089</div>
+      </div>
+      <div>
+        <div class="k">Active cards</div>
+        <div class="v">6</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topup-grid" id="topUpCardsList">
+
+    <!-- Tesco Clubcard -->
+    <div class="topup-card" data-card="tesco">
+      <span class="glow brand-tesco"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-tesco">🛒</div>
+        <span class="topup-tag">Clubcard</span>
+      </div>
+      <div>
+        <h3 class="topup-name">Tesco</h3>
+        <div class="topup-points">
+          <span class="num" data-points>1,248</span>
+          <span class="unit">points</span>
+        </div>
+        <div class="topup-worth">Worth <strong data-worth>£12.48</strong></div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
     </div>
 
-    <form id="transferForm" class="transfer-form">
-      <label>
-        From account
-        <select id="fromAccount"></select>
-      </label>
-
-      <label>
-        Recipient name
-        <input id="recipientName" type="text" placeholder="John Smith" />
-      </label>
-
-      <div class="row">
-        <label>
-          Sort code
-          <input id="sortCode" type="text" placeholder="12-34-56" />
-        </label>
-
-        <label>
-          Account number
-          <input id="accountNumber" type="text" placeholder="12345678" />
-        </label>
+    <!-- Sainsbury's Nectar -->
+    <div class="topup-card" data-card="nectar">
+      <span class="glow brand-nectar"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-nectar">🍇</div>
+        <span class="topup-tag">Nectar</span>
       </div>
+      <div>
+        <h3 class="topup-name">Sainsbury's</h3>
+        <div class="topup-points">
+          <span class="num" data-points>3,420</span>
+          <span class="unit">points</span>
+        </div>
+        <div class="topup-worth">Worth <strong data-worth>£17.10</strong></div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
+    </div>
 
-      <label>
-        Reference
-        <input id="reference" type="text" placeholder="Rent / Bills" />
-      </label>
+    <!-- Oyster -->
+    <div class="topup-card" data-card="oyster">
+      <span class="glow brand-oyster"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-oyster">🚇</div>
+        <span class="topup-tag">TfL Travel</span>
+      </div>
+      <div>
+        <h3 class="topup-name">Oyster</h3>
+        <div class="topup-points">
+          <span class="num" data-points>£8.50</span>
+          <span class="unit">balance</span>
+        </div>
+        <div class="topup-worth">Pay as you go</div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
+    </div>
 
-      <button class="btn primary full">Confirm transfer</button>
+    <!-- Boots Advantage -->
+    <div class="topup-card" data-card="boots">
+      <span class="glow brand-boots"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-boots">💊</div>
+        <span class="topup-tag">Advantage Card</span>
+      </div>
+      <div>
+        <h3 class="topup-name">Boots</h3>
+        <div class="topup-points">
+          <span class="num" data-points>875</span>
+          <span class="unit">points</span>
+        </div>
+        <div class="topup-worth">Worth <strong data-worth>£8.75</strong></div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
+    </div>
 
-      <div id="transferMsg" class="success hidden"></div>
-      <div id="transferErr" class="error hidden"></div>
-    </form>
+    <!-- Costa Club -->
+    <div class="topup-card" data-card="costa">
+      <span class="glow brand-costa"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-costa">☕</div>
+        <span class="topup-tag">Costa Club</span>
+      </div>
+      <div>
+        <h3 class="topup-name">Costa Coffee</h3>
+        <div class="topup-points">
+          <span class="num" data-points>6</span>
+          <span class="unit">beans</span>
+        </div>
+        <div class="topup-worth">Free drink at <strong>8</strong></div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
+    </div>
+
+    <!-- Superdrug -->
+    <div class="topup-card" data-card="superdrug">
+      <span class="glow brand-superdrug"></span>
+      <div class="topup-head">
+        <div class="topup-logo brand-superdrug">💄</div>
+        <span class="topup-tag">Health &amp; Beautycard</span>
+      </div>
+      <div>
+        <h3 class="topup-name">Superdrug</h3>
+        <div class="topup-points">
+          <span class="num" data-points>540</span>
+          <span class="unit">points</span>
+        </div>
+        <div class="topup-worth">Worth <strong data-worth>£5.40</strong></div>
+      </div>
+      <button class="topup-btn" type="button">+ Top up</button>
+    </div>
+
   </div>
-  <!-- Transfer confirmation -->
-<div id="transferConfirm" class="card hidden transfer-confirm">
-  <h2>Transfer sent 🎉</h2>
 
-  <p class="confirm-amount" id="confirmAmount">£0.00</p>
-
-  <p class="confirm-text">
-    Money has been sent to <strong id="confirmRecipient"></strong>
-  </p>
-
-  <button class="btn primary" id="confirmDoneBtn">
-    Done
-  </button>
-</div>
+  <div id="topUpMsg" class="alert success hidden"></div>
 </section>
 
-
-        <!-- CARDS (route-cards) -->
+        <!-- CARDS -->
         <section id="route-cards" class="route hidden">
           <h2>Cards</h2>
           <p class="muted">Card management (prototype toggle only).</p>
@@ -289,7 +413,124 @@
           </div>
         </section>
 
-        <!-- MORE / PROFILE (route-more) -->
+        <!-- SAFETY -->
+        <section id="route-safety" class="route hidden">
+          <div class="guardian-header">
+            <div class="guardian-icon">🛡️</div>
+            <div class="guardian-text">Keeping your money safe</div>
+          </div>
+
+          <div class="safety-alert-banner">
+            <span>🛡️</span>
+            <strong>1 issue needs your attention</strong>
+          </div>
+
+          <button class="safety-call-btn" id="callSarahBtn" type="button">
+            📞 Call Sarah (Daughter)
+          </button>
+
+          <p class="safety-help-text">
+            Not sure what to do? Call someone you trust for help.
+          </p>
+
+          <h2 class="section-title">Recent Activity</h2>
+          <div id="safetyAlerts" class="list"></div>
+          <div id="safetyMsg" class="alert success hidden"></div>
+
+          <div id="callLogSection" class="card hidden">
+            <h2 class="section-title">Call Log</h2>
+            <div id="callLogList" class="list"></div>
+          </div>
+
+          <div class="card ai-safety-card">
+            <div class="suggestion-title">🤖 AI Safety Assistant</div>
+            <p class="suggestion-desc">
+              Hello Rania. I can explain suspicious activity in simple words and guide you
+              step by step before you take action.
+            </p>
+            <div class="save-badge">↗ Simple fraud help</div>
+            <button class="save-action-btn" type="button" id="aiSafetyBtn">
+              Ask AI Safety Assistant
+            </button>
+          </div>
+
+          <h2 class="section-title">Safety Tips</h2>
+          <div class="safety-tips-box">
+            <div class="tip-row">ℹ️ Your bank will NEVER call or text asking for your password.</div>
+            <div class="tip-row">ℹ️ Don't click links in unexpected text messages or emails.</div>
+            <div class="tip-row">ℹ️ If something feels wrong, call your trusted contact first.</div>
+          </div>
+        </section>
+
+        <!-- SAVINGS -->
+        <section id="route-savings" class="route hidden">
+          <div class="guardian-header">
+            <div class="guardian-icon">🐷</div>
+            <div class="guardian-text">Simple ways to save more</div>
+          </div>
+
+          <div class="savings-top-stats">
+            <div class="savings-stat soft-blue">
+              <div class="savings-icon">£</div>
+              <div class="savings-label">Total Saved</div>
+              <div class="savings-value" id="totalSavedValue">£0.00</div>
+            </div>
+
+            <div class="savings-stat soft-green">
+              <div class="savings-icon">✨</div>
+              <div class="savings-label">You Could Save</div>
+              <div class="savings-value" id="couldSaveValue">£0.00/yr</div>
+            </div>
+          </div>
+
+          <h2 class="section-title">Smart Suggestions</h2>
+          <div id="safeToSpendCard"></div>
+          <div id="savingsSuggestions"></div>
+          <div id="savingsMsg" class="alert success hidden"></div>
+
+          <h2 class="section-title">Your Savings Goals</h2>
+
+          <div class="goal-card">
+            <div class="goal-head">
+              <div class="goal-title">🎁 Grandkids' Gifts</div>
+              <div class="goal-percent">68%</div>
+            </div>
+            <div class="goal-bar"><span style="width:68%"></span></div>
+            <div class="goal-meta">
+              <span>Saved: <strong>£340</strong></span>
+              <span>Goal: <strong>£500</strong></span>
+            </div>
+            <div class="goal-note">Only £160 to go — you're doing great!</div>
+          </div>
+
+          <div class="goal-card">
+            <div class="goal-head">
+              <div class="goal-title">🌻 New Garden Furniture</div>
+              <div class="goal-percent">30%</div>
+            </div>
+            <div class="goal-bar"><span style="width:30%"></span></div>
+            <div class="goal-meta">
+              <span>Saved: <strong>£120</strong></span>
+              <span>Goal: <strong>£400</strong></span>
+            </div>
+            <div class="goal-note">Only £280 to go — you're doing great!</div>
+          </div>
+
+          <div class="goal-card">
+            <div class="goal-head">
+              <div class="goal-title">🏦 Emergency Fund</div>
+              <div class="goal-percent">56%</div>
+            </div>
+            <div class="goal-bar"><span style="width:56%"></span></div>
+            <div class="goal-meta">
+              <span>Saved: <strong>£2800</strong></span>
+              <span>Goal: <strong>£5000</strong></span>
+            </div>
+            <div class="goal-note">Only £2200 to go — you're doing great!</div>
+          </div>
+        </section>
+
+        <!-- PROFILE -->
         <section id="route-more" class="route hidden">
           <h2>Profile</h2>
           <p class="muted">Update personal details stored locally (demo purposes).</p>
@@ -299,67 +540,119 @@
               <label>Full name <input id="fullName" type="text" required /></label>
               <label>Phone <input id="phone" type="tel" placeholder="+44..." required /></label>
               <label>Address <input id="address" type="text" required /></label>
+              <label>Occupancy <input id="occupancy" type="text" placeholder="Retired" /></label>
+             <label>Date of birth <input id="dob" type="date" /></label>
+            <label>Trusted contact <input id="trustedContact" type="text" placeholder="Sarah Fadiel" /></label>
+            <label>Preferred contact method
+            <select id="contactMethod">
+            <option value="Phone">Phone</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="SMS">SMS</option>
+            <option value="Email">Email</option>
+          </select>
+        </label>
               <button class="btn primary" type="submit">Save changes</button>
             </form>
+
             <div id="profileMsg" class="alert success hidden"></div>
 
             <div class="divider"></div>
 
-            <button class="btn secondary" id="logoutBtn">Logout</button>
+            <button class="btn secondary" id="logoutBtn" type="button">Logout</button>
             <span id="sessionUser" class="pill hidden"></span>
           </div>
         </section>
-
       </section>
 
       <!-- BOTTOM NAV -->
       <nav class="bottom-nav">
-        <button class="nav-item active" data-route="dashboard">Home</button>
-        <button class="nav-item" data-route="cards">Cards</button>
-        <button class="nav-item" data-route="transfer">Transfer</button>
-        <button class="nav-item" data-route="analytics">Analytics</button>
-        <button class="nav-item" data-route="more">More</button>
+        <button class="nav-item active" data-route="dashboard" type="button">Home</button>
+        <button class="nav-item" data-route="safety" type="button">Safety</button>
+        <button class="nav-item" data-route="savings" type="button">Savings</button>
+        <button class="nav-item" data-route="cards" type="button">Cards</button>
+        <button class="nav-item" data-route="transfer" type="button">Transfer</button>
+        <button class="nav-item" data-route="analytics" type="button">Analytics</button>
+        <button class="nav-item" data-route="more" type="button">More</button>
       </nav>
     </main>
+
+    <!-- AVATAR POPOVER -->
+    <div id="profilePopover" class="popover hidden" aria-hidden="true">
+      <div class="popover-card">
+        <div class="pop-hd">
+          <div class="pop-avatar" id="popAvatar">R</div>
+          <div class="pop-meta">
+            <div class="pop-name" id="popName">Your Name</div>
+            <div class="pop-email" id="popEmail">you@email.com</div>
+          </div>
+        </div>
+
+        <div class="pop-grid">
+          <div class="pop-item">
+            <div class="k">Phone</div>
+            <div class="v" id="popPhone">—</div>
+          </div>
+          <div class="pop-item">
+            <div class="k">Address</div>
+            <div class="v" id="popAddress">—</div>
+          </div>
+          <div class="pop-item">
+            <div class="k">Card status</div>
+            <div class="v" id="popCardStatus">ACTIVE</div>
+          </div>
+          <div class="pop-item">
+            <div class="k">Session</div>
+            <div class="v" id="popSession">Signed in</div>
+          </div>
+        </div>
+
+        <div class="pop-actions">
+          <button class="btn secondary" id="popGoProfile" type="button">Open Profile</button>
+          <button class="btn primary" id="popLogout" type="button">Logout</button>
+        </div>
+      </div>
+    </div>
   </div>
+<!-- ===== Scan Bill / Invoice Modal ===== -->
+<div id="scanModal" class="modal" hidden aria-hidden="true" role="dialog" aria-labelledby="scanTitle">
+  <div class="modal-content scan-modal">
+    <button class="modal-close" id="scanCloseBtn" aria-label="Close">×</button>
+    <h2 id="scanTitle">Scan Bill / Invoice</h2>
 
-  <script src="app.js"></script>
-  <!-- Avatar popover -->
-<div id="profilePopover" class="popover hidden" aria-hidden="true">
-  <div class="popover-card">
-    <div class="pop-hd">
-      <div class="pop-avatar" id="popAvatar">R</div>
-      <div class="pop-meta">
-        <div class="pop-name" id="popName">Your Name</div>
-        <div class="pop-email" id="popEmail">you@email.com</div>
+    <div id="scanStep1" class="scan-step">
+      <p class="scan-hint">Point your camera at the bill or invoice</p>
+      <div class="scan-frame" aria-hidden="true">
+        <div class="scan-corners"></div>
+        <div class="scan-line"></div>
+        <div class="scan-doc">📄</div>
       </div>
+      <button id="simulateScanBtn" class="btn primary big" type="button">Scan now</button>
     </div>
 
-    <div class="pop-grid">
-      <div class="pop-item">
-        <div class="k">Phone</div>
-        <div class="v" id="popPhone">—</div>
+    <div id="scanStep2" class="scan-step" hidden>
+      <p class="scan-success">✓ Bill detected</p>
+      <div class="bill-result">
+        <div class="bill-row">
+          <span class="bill-label">Company</span>
+          <span class="bill-value" id="billCompany">—</span>
+        </div>
+        <div class="bill-row">
+          <span class="bill-label">Amount</span>
+          <span class="bill-value bill-amount" id="billAmount">£0.00</span>
+        </div>
+        <div class="bill-row">
+          <span class="bill-label">Reference</span>
+          <span class="bill-value" id="billRef">—</span>
+        </div>
       </div>
-      <div class="pop-item">
-        <div class="k">Address</div>
-        <div class="v" id="popAddress">—</div>
+      <div class="scan-actions">
+        <button id="payNowBtn" class="btn primary big" type="button">Pay now</button>
+        <button id="rescanBtn" class="btn ghost big" type="button">Scan again</button>
       </div>
-      <div class="pop-item">
-        <div class="k">Card status</div>
-        <div class="v" id="popCardStatus">ACTIVE</div>
-      </div>
-      <div class="pop-item">
-        <div class="k">Session</div>
-        <div class="v" id="popSession">Signed in</div>
-      </div>
-    </div>
-
-    <div class="pop-actions">
-      <button class="btn secondary" id="popGoProfile" type="button">Open Profile</button>
-      <button class="btn primary" id="popLogout" type="button">Logout</button>
+      <p id="payStatus" class="pay-status" hidden></p>
     </div>
   </div>
 </div>
-
+  <script src="app.js"></script>
 </body>
 </html>
