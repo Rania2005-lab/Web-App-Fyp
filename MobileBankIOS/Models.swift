@@ -42,3 +42,41 @@ struct Transaction: Identifiable, Codable, Hashable {
     var amount: Double
     var note: String
 }
+
+
+// MARK: - Safety & Security
+
+struct PaymentCard: Identifiable, Codable, Hashable {
+    var id: String
+    var name: String
+    var last4: String
+    var isFrozen: Bool
+    var dailyLimit: Double
+    var contactlessEnabled: Bool
+    var onlineEnabled: Bool
+    var atmEnabled: Bool
+}
+
+struct LoginEvent: Identifiable, Codable, Hashable {
+    var id: String
+    var date: Date
+    var device: String
+    var location: String
+    var suspicious: Bool
+}
+
+struct FraudAlert: Identifiable, Codable, Hashable {
+    var id: String
+    var date: Date
+    var title: String
+    var detail: String
+    var resolved: Bool
+}
+
+struct TrustedContact: Identifiable, Codable, Hashable {
+    var id: String
+    var name: String
+    var relation: String
+    var phone: String
+    var initials: String
+}
